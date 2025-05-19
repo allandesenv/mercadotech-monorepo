@@ -22,7 +22,7 @@
   </modules>
 
   <properties>
-    <java.version>22</java.version>
+    <java.version>21</java.version>
   </properties>
 
   <dependencyManagement>
@@ -30,7 +30,14 @@
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
-        <version>3.2.5</version>
+        <version>3.4.4</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>2024.0.1</version> <!-- ou mais recente compatível -->
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -45,9 +52,14 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.11.0</version>
           <configuration>
-            <source>22</source>
-            <target>22</target>
+            <source>21</source>
+            <target>21</target>
           </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <version>3.4.4</version>
         </plugin>
       </plugins>
     </pluginManagement>

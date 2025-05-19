@@ -9,5 +9,15 @@
   </parent>
   <artifactId>config-server</artifactId>
   <dependencies>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-config-server</artifactId>
+      <version>4.2.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+      <version>3.4.4</version>
+    </dependency>
   </dependencies>
 </project>
