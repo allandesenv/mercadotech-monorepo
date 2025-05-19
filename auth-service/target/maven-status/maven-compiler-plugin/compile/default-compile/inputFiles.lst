@@ -1,5 +1,6 @@
 C:\mercadotech-monorepo\auth-service\src\main\java\com\mercadotech\authservice\AuthServiceApplication.java
 C:\mercadotech-monorepo\auth-service\src\main\java\com\mercadotech\authservice\config\SecurityConfig.java
-C:\mercadotech-monorepo\auth-service\src\main\java\com\mercadotech\authservice\dto\security\JwtUtil.java
-C:\mercadotech-monorepo\auth-service\src\main\java\com\mercadotech\authservice\dto\UserDTO.java
+C:\mercadotech-monorepo\auth-service\src\main\java\com\mercadotech\authservice\dto\LoginRequest.java
+C:\mercadotech-monorepo\auth-service\src\main\java\com\mercadotech\authservice\dto\LoginResponse.java
+C:\mercadotech-monorepo\auth-service\src\main\java\com\mercadotech\authservice\jwt\JwtUtil.java
 C:\mercadotech-monorepo\auth-service\src\main\java\com\mercadotech\authservice\controller\AuthController.java

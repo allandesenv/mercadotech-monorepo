@@ -1,30 +1,28 @@
 package com.mercadotech.authservice.controller;
 
-import com.mercadotech.authservice.dto.UserDTO;
-import com.mercadotech.authservice.security.JwtUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.mercadotech.authservice.dto.LoginRequest;
+import com.mercadotech.authservice.dto.LoginResponse;
+import com.mercadotech.authservice.jwt.JwtUtil;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 
-    @Autowired
-    private JwtUtil jwtUtil;
+    private final JwtUtil jwtUtil;
 
-    @PostMapping("/login")
-    public String login(@RequestBody UserDTO user) {
-        if ("admin".equals(user.getUsername()) && "123456".equals(user.getPassword())) {
-            return jwtUtil.generateToken(user.getUsername());
-        }
-        return "Credenciais inválidas";
+    public AuthController(JwtUtil jwtUtil) {
+        this.jwtUtil = jwtUtil;
     }
 
-    @GetMapping("/validate")
-    public String validate(@RequestHeader("Authorization") String token) {
-        if (jwtUtil.validateToken(token.replace("Bearer ", ""))) {
-            return "Token válido!";
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
+        if ("admin".equals(request.getUsername()) && "admin".equals(request.getPassword())) {
+            String token = jwtUtil.generateToken(request.getUsername());
+            return ResponseEntity.ok(new LoginResponse(token));
+        } else {
+            return ResponseEntity.status(401).build();
         }
-        return "Token inválido!";
     }
 }

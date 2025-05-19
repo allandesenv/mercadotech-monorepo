@@ -1,5 +1,6 @@
 com\mercadotech\authservice\AuthServiceApplication.class
 com\mercadotech\authservice\controller\AuthController.class
-com\mercadotech\authservice\security\JwtUtil.class
+com\mercadotech\authservice\dto\LoginRequest.class
 com\mercadotech\authservice\config\SecurityConfig.class
-com\mercadotech\authservice\dto\UserDTO.class
+com\mercadotech\authservice\dto\LoginResponse.class
+com\mercadotech\authservice\jwt\JwtUtil.class
