@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://prod-db:5432/mercadotech
+    username: mercadotech_user
+    password: senha_segura
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false

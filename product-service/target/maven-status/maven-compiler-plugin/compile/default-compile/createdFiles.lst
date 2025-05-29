@@ -1,1 +1,11 @@
+com\mercadotech\productservice\config\SwaggerConfig.class
+com\mercadotech\productservice\controller\CategoryController.class
+com\mercadotech\productservice\repository\CategoryRepository.class
+com\mercadotech\productservice\controller\ProductController.class
+com\mercadotech\productservice\repository\UnitRepository.class
+com\mercadotech\productservice\repository\ProductRepository.class
 com\mercadotech\productservice\ProductServiceApplication.class
+com\mercadotech\productservice\model\Product.class
+com\mercadotech\productservice\model\Category.class
+com\mercadotech\productservice\controller\UnitController.class
+com\mercadotech\productservice\model\Unit.class
