@@ -1,0 +1,13 @@
+com\mercadotech\stockservice\entity\EntradaEstoque.class
+com\mercadotech\stockservice\dto\ProdutoEstoqueDTO.class
+com\mercadotech\stockservice\entity\SaidaEstoque$SaidaEstoqueBuilder.class
+com\mercadotech\stockservice\entity\EntradaEstoque$EntradaEstoqueBuilder.class
+com\mercadotech\stockservice\repository\SaidaEstoqueRepository.class
+com\mercadotech\stockservice\controller\EstoqueController.class
+com\mercadotech\stockservice\repository\EntradaEstoqueRepository.class
+com\mercadotech\stockservice\entity\SaidaEstoque.class
+com\mercadotech\stockservice\enums\TipoSaida.class
+com\mercadotech\stockservice\dto\ProdutoEstoqueDTO$ProdutoEstoqueDTOBuilder.class
+com\mercadotech\stockservice\service\EstoqueService.class
+com\mercadotech\stockservice\StockServiceApplication.class
+com\mercadotech\stockservice\client\ProductServiceFeignClient.class

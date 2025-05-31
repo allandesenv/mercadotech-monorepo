@@ -1,4 +1,5 @@
 com\mercadotech\productservice\config\SwaggerConfig.class
+com\mercadotech\productservice\dto\ProductResponseDTO.class
 com\mercadotech\productservice\controller\CategoryController.class
 com\mercadotech\productservice\repository\CategoryRepository.class
 com\mercadotech\productservice\controller\ProductController.class

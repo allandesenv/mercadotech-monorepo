@@ -1,0 +1,7 @@
+c:\mercadotech-monorepo\sales-service\src\main\java\com\mercadotech\salesservice\dto\SaidaEstoqueDTO.java
+c:\mercadotech-monorepo\sales-service\src\main\java\com\mercadotech\salesservice\service\SalesService.java
+c:\mercadotech-monorepo\sales-service\src\main\java\com\mercadotech\salesservice\client\StockServiceFeignClient.java
+c:\mercadotech-monorepo\sales-service\src\main\java\com\mercadotech\salesservice\repository\VendaRepository.java
+c:\mercadotech-monorepo\sales-service\src\main\java\com\mercadotech\salesservice\SalesServiceApplication.java
+c:\mercadotech-monorepo\sales-service\src\main\java\com\mercadotech\salesservice\controller\SalesController.java
+c:\mercadotech-monorepo\sales-service\src\main\java\com\mercadotech\salesservice\entity\Venda.java
