@@ -1,0 +1,9 @@
+com\mercadotech\salesservice\entity\Venda$VendaBuilder.class
+com\mercadotech\salesservice\SalesServiceApplication.class
+com\mercadotech\salesservice\client\StockServiceFeignClient.class
+com\mercadotech\salesservice\controller\SalesController.class
+com\mercadotech\salesservice\dto\SaidaEstoqueDTO.class
+com\mercadotech\salesservice\service\SalesService.class
+com\mercadotech\salesservice\dto\SaidaEstoqueDTO$SaidaEstoqueDTOBuilder.class
+com\mercadotech\salesservice\entity\Venda.class
+com\mercadotech\salesservice\repository\VendaRepository.class

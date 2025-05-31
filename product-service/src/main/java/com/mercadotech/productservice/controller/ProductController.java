@@ -1,5 +1,6 @@
 package com.mercadotech.productservice.controller;
 
+import com.mercadotech.productservice.dto.ProductResponseDTO;
 import com.mercadotech.productservice.model.Product;
 import com.mercadotech.productservice.repository.ProductRepository;
 import org.springframework.http.ResponseEntity;
@@ -27,9 +28,9 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> findById(@PathVariable Long id) {
+    public ResponseEntity<ProductResponseDTO> findById(@PathVariable Long id) {
         return repository.findById(id)
-                .map(ResponseEntity::ok)
+                .map(product -> ResponseEntity.ok(convertToDto(product))) // Chame um método de conversão
                 .orElse(ResponseEntity.notFound().build());
     }
 
@@ -56,5 +57,20 @@ public class ProductController {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
+    }
+
+    // Dentro de ProductService
+    public ProductResponseDTO convertToDto(Product product) {
+        ProductResponseDTO dto = new ProductResponseDTO();
+        dto.setId(product.getId());
+        dto.setName(product.getName());
+        dto.setPrice(product.getPrice());
+        if (product.getCategory() != null) {
+            dto.setCategoryName(product.getCategory().getName());
+        }
+        if (product.getUnit() != null) {
+            dto.setUnitAbbreviation(product.getUnit().getAbbreviation());
+        }
+        return dto;
     }
 }

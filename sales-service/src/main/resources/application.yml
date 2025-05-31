@@ -1,0 +1,33 @@
+server:
+  port: 8085 # Porta em que o sales-service será executado (Sugestão: 8085, para não conflitar com outros serviços)
+
+spring:
+  application:
+    name: sales-service # Nome do serviço, usado no Eureka
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mercadotech_sales # URL de conexão com o banco de dados PostgreSQL para vendas
+    username: mercadotech_user # Usuário do banco de dados (ajuste se necessário)
+    password: senha_segura # Senha do banco de dados (ajuste se necessário)
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update # Estratégia de criação/atualização do schema do banco (pode ser "none", "update", "create", "create-drop")
+    show-sql: true # Exibe as queries SQL no console (útil para debug)
+    properties:
+      hibernate:
+        format_sql: true # Formata as queries SQL no console
+  config:
+    import: "optional:configserver:" # Habilita o Config Server para buscar configurações
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka # URL do Eureka Discovery Server
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    hostname: localhost
+    instance-id: ${spring.application.name}:${random.value}
+
+stock-service:
+  url: http://localhost:8084 # URL base do stock-service, conforme você indicou
