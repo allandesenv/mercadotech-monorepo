@@ -1,0 +1,44 @@
+server:
+  port: 8086 # Porta em que o validity-service será executado (Sugestão: 8086)
+
+spring:
+  application:
+    name: validity-service # Nome do serviço, usado no Eureka
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mercadotech_validity # URL de conexão com o banco de dados PostgreSQL para validade
+    username: mercadotech_user # Usuário do banco de dados (ajuste se necessário)
+    password: senha_segura # Senha do banco de dados (ajuste se necessário)
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update # Estratégia de criação/atualização do schema do banco
+    show-sql: true # Exibe as queries SQL no console
+    properties:
+      hibernate:
+        format_sql: true # Formata as queries SQL
+  config:
+    import: "optional:configserver:" # Habilita o Config Server
+
+# Configurações para comunicação com outros serviços via Feign
+stock-service:
+  url: http://localhost:8084 # URL base do stock-service
+notification-service:
+  url: http://localhost:8087 # URL base do notification-service (assumindo que ele estará na porta 8087)
+
+# Configurações do Eureka Client
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka # URL do Eureka Discovery Server
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    hostname: localhost
+    instance-id: ${spring.application.name}:${random.value}
+
+# Configurações para o Agendador (Scheduler)
+# Exemplo: cron para rodar diariamente à 00:00 (meia-noite)
+app:
+  scheduler:
+    cron-check-vencimento: "0 0 0 * * ?" # A cada dia, à meia-noite
+    dias-alerta-vencimento: 7 # Número de dias antes do vencimento para alertar

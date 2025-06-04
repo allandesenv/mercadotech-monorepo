@@ -107,6 +107,16 @@ spring:
               args:
                 roles: ADMIN,GERENTE # Relatórios mais restritos ao gerente
 
+        # Rota validity-service
+        - id: validity-service
+          uri: lb://validity-service
+          predicates:
+            - Path=/validade/**
+          filters:
+            - name: Authorize
+              args:
+                roles: ADMIN,GERENTE,ESTOQUISTA # Acesso para gerenciamento de validade
+
 # Configurações do Eureka Client
 eureka:
   client:
