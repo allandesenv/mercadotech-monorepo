@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController // Marca a classe como um controlador REST
-@RequestMapping("/estoque") // Define o caminho base para todos os endpoints deste controlador
+@RequestMapping("/v1/estoque") // Define o caminho base para todos os endpoints deste controlador
 @RequiredArgsConstructor // Gera construtor com argumentos obrigatórios (para injeção de dependências)
 @Slf4j // Gera um logger para a classe
 public class EstoqueController {

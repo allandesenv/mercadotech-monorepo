@@ -24,7 +24,7 @@ spring:
         - id: product-service-products
           uri: lb://product-service
           predicates:
-            - Path=/products/** # Mapeia todos os caminhos que começam com /products/
+            - Path=/v1/products/** # Mapeia todos os caminhos que começam com /products/
           filters:
             - name: Authorize
               args:
@@ -34,7 +34,7 @@ spring:
         - id: product-service-categories
           uri: lb://product-service
           predicates:
-            - Path=/categories/** # Mapeia todos os caminhos que começam com /categories/
+            - Path=/v1/categories/** # Mapeia todos os caminhos que começam com /categories/
           filters:
             - name: Authorize
               args:
@@ -44,7 +44,7 @@ spring:
         - id: product-service-units
           uri: lb://product-service
           predicates:
-            - Path=/units/** # Mapeia todos os caminhos que começam com /units/
+            - Path=/v1/units/** # Mapeia todos os caminhos que começam com /units/
           filters:
             - name: Authorize
               args:
@@ -55,7 +55,7 @@ spring:
         - id: stock-service-post-entrada
           uri: lb://stock-service
           predicates:
-            - Path=/estoque/entrada
+            - Path=/v1/estoque/entrada
             - Method=POST
           filters:
             - name: Authorize
@@ -66,7 +66,7 @@ spring:
         - id: stock-service-post-saida
           uri: lb://stock-service
           predicates:
-            - Path=/estoque/saida
+            - Path=/v1/estoque/saida
             - Method=POST
           filters:
             - name: Authorize
@@ -77,7 +77,7 @@ spring:
         - id: stock-service-get-info
           uri: lb://stock-service
           predicates:
-            - Path=/estoque/** # Engloba todos os GETs que começam com /estoque/ (ex: /estoque/{produtoId})
+            - Path=/v1/estoque/** # Engloba todos os GETs que começam com /estoque/ (ex: /estoque/{produtoId})
             - Method=GET
           filters:
             - name: Authorize
@@ -89,7 +89,7 @@ spring:
         - id: sales-service-post-sale
           uri: lb://sales-service
           predicates:
-            - Path=/vendas
+            - Path=/v1/vendas
             - Method=POST
           filters:
             - name: Authorize
@@ -100,7 +100,7 @@ spring:
         - id: sales-service-get-reports
           uri: lb://sales-service
           predicates:
-            - Path=/vendas/** # Engloba todos os GETs que começam com /vendas/
+            - Path=/v1/vendas/** # Engloba todos os GETs que começam com /vendas/
             - Method=GET
           filters:
             - name: Authorize
