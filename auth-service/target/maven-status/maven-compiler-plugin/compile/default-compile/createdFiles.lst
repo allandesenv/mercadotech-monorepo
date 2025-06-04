@@ -1,5 +1,7 @@
 com\mercadotech\authservice\AuthServiceApplication.class
 com\mercadotech\authservice\controller\AuthController.class
+com\mercadotech\authservice\model\UserRepository.class
+com\mercadotech\authservice\model\User.class
 com\mercadotech\authservice\dto\LoginRequest.class
 com\mercadotech\authservice\config\SecurityConfig.class
 com\mercadotech\authservice\dto\LoginResponse.class

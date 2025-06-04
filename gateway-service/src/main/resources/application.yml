@@ -1,5 +1,5 @@
 server:
-  port: 8083
+  port: 8081 # Porta do Gateway Service
 
 spring:
   application:
@@ -13,19 +13,110 @@ spring:
           enabled: true
           lower-case-service-id: true
       routes:
+        # 1. Rota para AUTH Service (Login, Hello - geralmente aberta no filtro Global)
         - id: auth-service
           uri: lb://auth-service
           predicates:
             - Path=/auth/**
-        - id: product-service
+
+        # 2. Rotas para PRODUCT Service: Produtos, Categorias e Unidades
+        # Rota para endpoints de Produtos (ex: /products, /products/{id})
+        - id: product-service-products
           uri: lb://product-service
           predicates:
-            - Path=/products/**
+            - Path=/products/** # Mapeia todos os caminhos que começam com /products/
+          filters:
+            - name: Authorize
+              args:
+                roles: ADMIN,GERENTE,ESTOQUISTA,CAIXA # Acesso amplo para visualização e operações CRUD em Produtos
 
+        # Rota para endpoints de Categorias (ex: /categories, /categories/{id})
+        - id: product-service-categories
+          uri: lb://product-service
+          predicates:
+            - Path=/categories/** # Mapeia todos os caminhos que começam com /categories/
+          filters:
+            - name: Authorize
+              args:
+                roles: ADMIN,GERENTE # Gerenciamento de categorias geralmente mais restrito
+
+        # Rota para endpoints de Unidades (ex: /units, /units/{id})
+        - id: product-service-units
+          uri: lb://product-service
+          predicates:
+            - Path=/units/** # Mapeia todos os caminhos que começam com /units/
+          filters:
+            - name: Authorize
+              args:
+                roles: ADMIN,GERENTE # Gerenciamento de unidades geralmente mais restrito
+
+        # 3. Rotas para STOCK Service
+        # Rota para registrar Entrada de Estoque (POST /estoque/entrada)
+        - id: stock-service-post-entrada
+          uri: lb://stock-service
+          predicates:
+            - Path=/estoque/entrada
+            - Method=POST
+          filters:
+            - name: Authorize
+              args:
+                roles: ADMIN,ESTOQUISTA,GERENTE # Apenas esses podem fazer entrada
+
+        # Rota para registrar Saída de Estoque (POST /estoque/saida)
+        - id: stock-service-post-saida
+          uri: lb://stock-service
+          predicates:
+            - Path=/estoque/saida
+            - Method=POST
+          filters:
+            - name: Authorize
+              args:
+                roles: ADMIN,ESTOQUISTA,GERENTE # Apenas esses podem fazer saída
+
+        # Rota para obter Saldo/Histórico de Estoque (GET /estoque/{produtoId})
+        - id: stock-service-get-info
+          uri: lb://stock-service
+          predicates:
+            - Path=/estoque/** # Engloba todos os GETs que começam com /estoque/ (ex: /estoque/{produtoId})
+            - Method=GET
+          filters:
+            - name: Authorize
+              args:
+                roles: ADMIN,GERENTE,ESTOQUISTA,CAIXA # Saldo pode ser visto por mais perfis, dependendo da necessidade
+
+        # 4. Rotas para SALES Service
+        # Rota para registrar Venda (POST /vendas)
+        - id: sales-service-post-sale
+          uri: lb://sales-service
+          predicates:
+            - Path=/vendas
+            - Method=POST
+          filters:
+            - name: Authorize
+              args:
+                roles: ADMIN,CAIXA,GERENTE # Quem pode registrar vendas
+
+        # Rota para relatórios e histórico de vendas (GET /vendas, GET /vendas/produto/{id})
+        - id: sales-service-get-reports
+          uri: lb://sales-service
+          predicates:
+            - Path=/vendas/** # Engloba todos os GETs que começam com /vendas/
+            - Method=GET
+          filters:
+            - name: Authorize
+              args:
+                roles: ADMIN,GERENTE # Relatórios mais restritos ao gerente
+
+# Configurações do Eureka Client
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+    hostname: localhost
+    instance-id: ${spring.application.name}:${random.value}
 
+# Configurações JWT (chave secreta deve ser a mesma do Auth Service)
 jwt:
-  secret: uma-chave-secreta-super-segura-com-mais-32-bytes
+  secret: uma-chave-secreta-super-segura-com-mais-32-bytes # Certifique-se que esta é a mesma do Auth Service

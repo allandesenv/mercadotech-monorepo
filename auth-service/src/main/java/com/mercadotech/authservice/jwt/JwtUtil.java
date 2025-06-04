@@ -6,44 +6,45 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.security.Key;
+import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.List; // Adicione este import
+import java.util.Map; // Adicione este import
+import java.util.HashMap; // Adicione este import
 
 @Component
 public class JwtUtil {
 
-    private final Key secretKey;
+    @Value("${jwt.secret}")
+    private String secret;
 
-    // Injeta a chave do application.yml
-    public JwtUtil(@Value("${jwt.secret}") String secret) {
-        this.secretKey = Keys.hmacShaKeyFor(secret.getBytes());
-    }
+    @Value("${jwt.expiration}")
+    private Long expiration; // Em milissegundos
 
-    public String generateToken(String username) {
+    /**
+     * Gera um token JWT contendo o ID do usuário e suas roles.
+     * @param userId O ID único do usuário.
+     * @param username O nome de usuário.
+     * @param roles Uma lista de strings representando as roles do usuário (ex: "GERENTE", "ESTOQUISTA").
+     * @return O token JWT gerado.
+     */
+    public String generateToken(String userId, String username, List<String> roles) {
+        Date now = new Date();
+        Date expiryDate = new Date(now.getTime() + expiration);
+
+        SecretKey key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+
+        // Adicionar claims personalizadas
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("roles", roles); // Adiciona a lista de roles como uma claim "roles"
+
         return Jwts.builder()
-                .setSubject(username)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 86400000)) // 1 dia
-                .signWith(secretKey)
+                .setClaims(claims) // Adiciona as claims personalizadas
+                .setSubject(userId) // O 'sub' (subject) do JWT será o ID do usuário
+                .setIssuedAt(now)
+                .setExpiration(expiryDate)
+                .signWith(key, SignatureAlgorithm.HS256)  // << AQUI
                 .compact();
     }
-
-    public boolean validateToken(String token) {
-        try {
-            Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    public String extractUsername(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(secretKey)
-                .build()
-                .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
-    }
 }
-
