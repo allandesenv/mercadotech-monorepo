@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController // Marca a classe como um controlador REST
-@RequestMapping("/vendas") // Define o caminho base para todos os endpoints deste controlador
+@RequestMapping("/v1/vendas") // Define o caminho base para todos os endpoints deste controlador
 @RequiredArgsConstructor // Gera construtor com argumentos obrigatórios (para injeção de dependências)
 @Slf4j // Gera um logger para a classe
 public class SalesController {

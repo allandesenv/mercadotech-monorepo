@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/units")
+@RequestMapping("/v1/units")
 public class UnitController {
     private final UnitRepository repository;
 
