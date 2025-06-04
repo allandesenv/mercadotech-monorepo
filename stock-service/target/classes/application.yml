@@ -26,6 +26,7 @@ eureka:
     fetch-registry: true # Busca o registro de serviços do Eureka
     register-with-eureka: true # Registra este serviço no Eureka
   instance:
+    prefer-ip-address: true
     hostname: localhost # Nome do host para o registro no Eureka (pode ser ajustado em produção)
     instance-id: ${spring.application.name}:${random.value} # ID único da instância no Eureka
 

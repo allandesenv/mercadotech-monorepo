@@ -1,2 +1,4 @@
-com\mercadotech\gatewayservice\filter\AuthenticationFilter.class
+com\mercadotech\gatewayservice\AuthorizeGatewayFilterFactory.class
+com\mercadotech\gatewayservice\AuthorizeGatewayFilterFactory$Config.class
+com\mercadotech\gatewayservice\AuthenticationFilter.class
 com\mercadotech\gatewayservice\GatewayServiceApplication.class
